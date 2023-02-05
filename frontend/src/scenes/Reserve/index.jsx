@@ -164,11 +164,7 @@ const Customer = () => {
     name: content.product.name,
     qty: content.qty.toLocaleString(),
     costPrice: content.costPrice.toLocaleString(),
-    // salesPrice: content.salesPrice.toLocaleString(),
-    salesPrice: content.discount
-    ? Number(content.salesPrice) -
-      Number(content.salesPrice) * (content.discount / 100)
-    : content.salesPrice,
+    salesPrice: content.salesPrice.toLocaleString(),
     category: content.product.category,
     brand: content.product.brand,
     reOrder: content.product.re_order_level,
@@ -231,7 +227,7 @@ const Customer = () => {
 
   return (
     <Box m="20px">
-      <AdminHeader title="PRODUCTS" subtitle="Managing Product In Stock" />
+      <AdminHeader title="RESERVED PRODUCTS" subtitle="Reserved Products" />
       <InputBase
         sx={{ background: `${colors.primary[400]}`, px: 1 }}
         placeholder="Search"

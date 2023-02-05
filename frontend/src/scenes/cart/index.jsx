@@ -155,6 +155,10 @@ const Cart = () => {
             </TableBody>
           </Table>
         </TableContainer>
+        {/* salesPrice: content.discount
+    ? Number(content.salesPrice) -
+      Number(content.salesPrice) * (content.discount / 100)
+    : content.salesPrice, */}
 
         <hr />
         <Box

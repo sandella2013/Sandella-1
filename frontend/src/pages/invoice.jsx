@@ -7,15 +7,15 @@ import {
   TableRow,
   Button,
   Typography,
-} from '@mui/material'
-import { Box } from '@mui/system'
-import { useQuery } from 'react-query'
-import { useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
-import { getInvoiceData } from '../actions/salesActions'
+} from "@mui/material";
+import { Box } from "@mui/system";
+import { useQuery } from "react-query";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { getInvoiceData } from "../actions/salesActions";
 
 const Invoice = () => {
-  const { id } = useParams()
+  const { id } = useParams();
 
   // const users = useSelector((state) => state.userLogin)
   // const { userInfo } = users
@@ -25,96 +25,146 @@ const Invoice = () => {
     isError,
     error,
     data: invoiceData,
-  } = useQuery(['invoice', id], getInvoiceData)
+  } = useQuery(["invoice", id], getInvoiceData);
 
-  let content
+  let content;
   if (isLoading) {
-    return <p>Loading</p>
+    return <p>Loading</p>;
   } else if (isError) {
-    return <p>{error.message}</p>
+    return <p>{error.message}</p>;
   } else {
-    content = invoiceData
+    content = invoiceData;
   }
 
-  console.log(content)
-  const element = document.createElement('div')
-  element.id = 'test'
-  document.body.appendChild(element)
+  console.log(content);
+  const element = document.createElement("div");
+  element.id = "test";
+  document.body.appendChild(element);
 
   return (
     <Container>
-      <Typography variant='h5' textAlign='center' marginTop='5%'>
-        Invoice
-      </Typography>
-      <Box display='flex' justifyContent='space-between'>
-        <Box marginBottom='2%'>
-          <h3>From:</h3>
-          <p>
-            Sandella Furniture,
-            <br />
-            Nawala Road Nugegoda,
-            <br />
-            Sri Lanka
+      <Box display="flex" justifyContent="space-between">
+        <Box margin="0% 0">
+          <p style={{ fontSize: "60px", margin: "0", color: "#73261c" }}>
+            INVOICE
           </p>
-          <p>Hotline: +94 11 2809015</p>
+
+          <p>
+            <span style={{ fontSize: "20px" }}>{content.customer.name}</span>
+            <br />
+            <span style={{ fontSize: "20px" }}>{content.customer.address}</span>
+            <br />
+            <span style={{ fontSize: "20px" }}>{content.customer.phone}</span>
+          </p>
         </Box>
-        <Box marginBottom='2%' marginRight='5%'>
-          <h3>To:</h3>
-          <p>
-            {content.customer.name}
-            <br />
-            {content.customer.address}
-          </p>
+        <Box margin="2% 0">
+          <img width="300px" src="../assets/logo.jpg" alt="" />
         </Box>
       </Box>
-      <Box marginBottom='2%'>
-        <h3>Invoice No:</h3>
-        <p>
+      <Box margin="2% 0 4%">
+        <span style={{ fontSize: "20px" }}>Date : </span>
+        <span style={{ fontSize: "20px" }}>
+          {content.sale.createdAt.slice(0, 10)}
+          <br />
+        </span>
+        <p style={{ fontSize: "20px" }}>Invoice Number:</p>
+        <span style={{ fontSize: "20px" }}>
           {content.sale.id}
           <br />
-        </p>
+        </span>
       </Box>
 
-      <Table id='myId'>
+      <Table id="myId">
         <TableHead>
-          <TableRow>
-            <TableCell>Product</TableCell>
-            <TableCell>Quantity</TableCell>
-            <TableCell>Price</TableCell>
-            <TableCell>Total</TableCell>
+          <TableRow style={{ background: "#ddd0c7" }}>
+            <TableCell>DESCRIPTION</TableCell>
+            <TableCell>NO</TableCell>
+            <TableCell>PRICE</TableCell>
+            <TableCell>TOTAL</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {content.salesItems.map((item) => (
-            <TableRow key={item.id}>
+            <TableRow key={item.id} style={{ background: "#eae6e3" }}>
               <TableCell>{item.productName}</TableCell>
               <TableCell>{item.quantity}</TableCell>
               <TableCell>{item.price} LKR</TableCell>
               <TableCell>{item.quantity * item.price} LKR</TableCell>
             </TableRow>
           ))}
-           <TableRow>
+          {/* <TableRow style={{background:'#eae6e3'}}>
             <TableCell>Discount</TableCell>
             <TableCell></TableCell>
             <TableCell></TableCell>
             <TableCell>{content.sale.discount}%</TableCell>
-          </TableRow>
+          </TableRow> */}
 
-          <TableRow>
+          {/* <TableRow style={{background:'#eae6e3'}}>
             <TableCell>Sub Total</TableCell>
             <TableCell></TableCell>
             <TableCell></TableCell>
             <TableCell>{content.sale.subTotal}LKR</TableCell>
-          </TableRow>
+          </TableRow> */}
         </TableBody>
       </Table>
+
+      <Box display="flex" style={{ background: "#eae6e3" }}>
+        <Box margin="2%" padding="1.5%" flex="1">
+          <p>Warranty Period: 5 Years</p>
+          <p style={{ fontSize: "10px" }}>
+            Warranty will be provided only for the wooden structure of the
+            furniture and does not provide coverage to the Fabrics, Cushions,
+            Glasses and the damages caused to the furniture due to customer
+            negligence.
+          </p>
+        </Box>
+        <Box
+          margin="2%"
+          padding="1.5%"
+          flex="1"
+          display="flex"
+          style={{ background: "#ddd0c7" }}
+        >
+          <Box>
+            <p style={{ fontSize: "20px" }}>SUBTOTAL</p>
+            <p style={{ fontSize: "20px" }}>DISCOUNT</p>
+            <b style={{ fontSize: "20px" }}>TOTAL</b>
+          </Box>
+          <Box>
+            <p style={{ fontSize: "20px" }}> : {content.sale.total} LKR</p>
+            <p style={{ fontSize: "20px" }}> : {content.sale.discount} %</p>
+            <b style={{ fontSize: "20px" }}> :{content.sale.subTotal} LKR</b>
+          </Box>
+        </Box>
+      </Box>
+
+      <Box display="flex" style={{ background: "#eae6e3" , paddingBottom:'2%'}}>
+        <Box margin="2%"  flex="1"></Box>
+        <Box flex="1" display="flex">
+          <p>Thank you very much for your business.</p>
+        </Box>
+      </Box>
+
+      <Box display="flex" justifyContent="space-between"  style={{ background: "#ddd0c7" }}>
+        <Box margin="2%">
+         <b style={{ fontSize: "16px", margin: "0", color: "#73261c" }}>SANDELLA FURNITURE</b>
+         <br/>
+         <b style={{ fontSize: "16px", margin: "0", color: "#73261c" }}>NO: 201/1 NAWALA RD, NUGEGODA</b>
+        </Box>
+        <Box margin="2%">
+          <p>HOTLINE: 0112 809015</p>
+          <p>sandella.furniture@gmail.com</p>
+          <p>www.sandellafurniture.com</p>
+        </Box>
+      </Box>
+
       <p>{new Date().toString()}</p>
-      <Box textAlign='center'>
-        {' '}
+      <Box textAlign="center">
+        {" "}
         &copy; Open Code Labs - {new Date().toString().slice(10, 15)}
       </Box>
     </Container>
-  )
-}
+  );
+};
 
-export default Invoice
+export default Invoice;

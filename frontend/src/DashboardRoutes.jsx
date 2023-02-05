@@ -26,6 +26,9 @@ import UpdateMaterial from './scenes/materialUpdateForm'
 import Grn from './scenes/grn'
 import CreateGrn from './scenes/createGrnForm'
 
+import ReserveForm from './scenes/ReserveForm'
+import Reserve from './scenes/Reserve'
+
 import BluePrint from './scenes/bluePrint'
 import BluePrintList from './scenes/bluePrintTable'
 
@@ -74,6 +77,9 @@ function DashboardRoutes() {
 
             <Route path='/grn' element={<Grn/>} />
             <Route path='/creategrn' element={<CreateGrn/>} />
+
+            {/* <Route path='/reserve' element={<Reserve/>} />
+            <Route path='/createReserve/:id' element={<ReserveForm/>} /> */}
 
             <Route path ='/blueprint' element={<BluePrint/>} />
             <Route path ='/blueprint/:keyword' element={<BluePrint/>} />

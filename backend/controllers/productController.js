@@ -97,7 +97,7 @@ const prodcutDetails = asyncHandler(async (req, res) => {
   }
 
   if (probatch) {
-    res.status(200).json(result)
+    res.status(200).json(probatch)
   } else {
     res.status(404)
     throw new Error('product not found')

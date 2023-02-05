@@ -17,7 +17,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import DesignServices from "@mui/icons-material/DesignServices";
 import { useQuery } from "react-query";
-import { listGrn, updateProBatches } from "../../actions/grnActions";
+import { discountFunc, listGrn, updateProBatches } from "../../actions/grnActions";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
@@ -67,6 +67,23 @@ const Grn = () => {
     }, 1500);
   };
 
+  const discount = () => {
+    let feedback = prompt("Enter discount precentage?", "");
+
+    if (feedback > 0 && feedback < 100) {
+      const myObj = {};
+      myObj.discount = feedback;
+      myObj.token = userInfo.token;
+      myObj.id = selectedRows[0].id;
+
+      discountFunc(myObj);
+      toast.success("success!");
+      setTimeout(() => {
+        window.location.reload();
+      }, 1500);
+    }
+  };
+
   const columns = [
     { field: "id", headerName: "Batch ID", flex: 1 },
     {
@@ -114,7 +131,10 @@ const Grn = () => {
     name: content.name,
     costPrice: content.costPrice,
     discount: content.discount,
-    salesPrice: content.discount ?  Number(content.costPrice) - (Number(content.costPrice)*( content.discount/100)) : content.salesPrice,
+    salesPrice: content.discount
+      ? Number(content.salesPrice) -
+        Number(content.salesPrice) * (content.discount / 100)
+      : content.salesPrice,
     qty: content.qty,
     item: content.productId ? content.productId : content.materialId,
     date: new Date(content.createdAt).toString().slice(0, 25),
@@ -148,7 +168,7 @@ const Grn = () => {
           <Button
             className="p-0 pe-2"
             variant="text"
-            onClick={() => updateGrn()}
+            onClick={() => discount()}
           >
             <DesignServices fontSize="small" />
             <span className="px-2">Add Discount</span>

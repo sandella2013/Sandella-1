@@ -42,6 +42,20 @@ export const updateGrn = async (product) => {
 }
 
 
+export const discountFunc = async (product) => {
+  console.log(product)
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${product.token}`,
+    },
+  }
+
+  delete product.token
+
+  return await axios.put(`/api/probatch/discount`, product, config)
+}
+
 export const updateProBatches = async (batch) => {
   console.log(batch.token)
 

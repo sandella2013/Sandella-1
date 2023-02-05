@@ -22,10 +22,14 @@ const ProBatch = db.define('ProBatches', {
   },
   salesPrice: {
     type: DataTypes.FLOAT,
-    allowNull: false,
   },
 
+  isReserved: {
+    type: DataTypes.INTEGER,
+    defaultValue: 0,
+  },
   
+
   discount: {
     type: DataTypes.FLOAT,
   },

@@ -7,7 +7,8 @@ import {
   removeBatch,
   updateBatch,
   updateMaterialsBatches,
-  totalCost
+  totalCost,
+  addDiscount
 } from '../controllers/productBatchesController.js'
 
 import { protect,admin } from '../middleware/authMiddleware.js'
@@ -17,6 +18,7 @@ router
   .get(protect,admin, getAllBatches)
   .post(protect,admin, createBatch)
   
+  router.put('/discount',protect,admin, addDiscount)
 
 router.get('/total',protect,admin, totalCost)
 
