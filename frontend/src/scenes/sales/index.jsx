@@ -76,7 +76,7 @@ const Sales = () => {
     },
     {
       field: 'customer',
-      headerName: 'Customer Email',
+      headerName: 'Customer ',
       flex: 1,
     },
   ]
